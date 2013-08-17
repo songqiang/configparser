@@ -52,26 +52,43 @@ class ConfigParser:
                             self.noSectionItems.update([(fields[0], fields[1])])
     
     def __init__(self, fn):
+		"""
+		initialize parser with file fn
+		"""
         self.read(fn)
 
     def items(self, section = ""):
+ 		"""
+		return a list of key value pairs in given section. if no section is given,
+		return the key value pairs not in any of named sections
+		"""
         if section and section in self.sectionIterms:
             return [(k, v) for k, v in self.sectionIterms[section]]
         else:
             return [(k, v) for k, v in self.noSectionItems]
 
     def options(self, section = ""):
-        if section and section in self.sectionIterms:
+  		"""
+		return a list of options in given section. if no section is given,
+		return the options not in any of named sections
+		"""
+       if section and section in self.sectionIterms:
             return self.sectionIterms[section].keys()
         else:
             return self.noSectionItems.keys()
 
     def sections(self):
-        return [""] + self.sectionIterms.keys()
+   		"""
+		return a list of section names
+		"""
+       return [""] + self.sectionIterms.keys()
 
 
     def get(self, section = "", option = ""):
-        if section and section in self.sectionIterms:
+   		"""
+		return the value of given option in the given section
+		"""
+       if section and section in self.sectionIterms:
             return self.sectionIterms[section][option]
         else:
             return self.noSectionIterms[option]
